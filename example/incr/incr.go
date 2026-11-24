@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 	})
 
 	uiprogress.Start()
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	// fanout into 1k go routines
 	for i := 0; i < count; i++ {

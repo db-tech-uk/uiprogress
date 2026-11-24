@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func Example() {
@@ -27,7 +27,7 @@ func ExampleProgress_AddBar() {
 	waitTime := time.Millisecond * 100
 	uiprogress.Start()
 	// start the progress bars in go routines
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	bar1 := uiprogress.AddBar(20).AppendCompleted().PrependElapsed()
 	wg.Add(1)
@@ -53,7 +53,7 @@ func ExampleProgress_AddBar() {
 	go func() {
 		defer wg.Done()
 		for i := 1; i <= bar3.Total; i++ {
-			bar3.Set(i)
+			_ = bar3.Set(i)
 			time.Sleep(waitTime)
 		}
 	}()
@@ -86,7 +86,7 @@ func ExampleBar_Incr() {
 	})
 
 	uiprogress.Start()
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	// fanout into 1k go routines
 	for i := 0; i < count; i++ {

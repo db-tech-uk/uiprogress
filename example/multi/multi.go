@@ -3,15 +3,15 @@ package main
 import (
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func main() {
 	waitTime := time.Millisecond * 100
 	uiprogress.Start()
 
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	bar1 := uiprogress.AddBar(20).AppendCompleted().PrependElapsed()
 	wg.Add(1)

@@ -3,14 +3,14 @@ package main
 import (
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func main() {
 	uiprogress.Start()
 
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	bar := uiprogress.AddBar(100)
 
@@ -21,11 +21,11 @@ func main() {
 		time.Sleep(time.Millisecond * 50)
 		wg.Add(1)
 		go func(j int) {
-			bar.Set(j)
+			_ = bar.Set(j)
 			wg.Done()
 		}(i)
 	}
-	bar.Set(100)
+	_ = bar.Set(100)
 	time.Sleep(time.Millisecond * 50)
 
 	wg.Wait()
@@ -43,11 +43,11 @@ func main() {
 		time.Sleep(time.Millisecond * 50)
 		wg.Add(1)
 		go func(j int) {
-			bar1.Set(j)
+			_ = bar1.Set(j)
 			wg.Done()
 		}(i)
 	}
-	bar1.Set(100)
+	_ = bar1.Set(100)
 	time.Sleep(time.Millisecond * 50)
 
 	wg.Wait()

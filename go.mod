@@ -1,13 +1,13 @@
-module github.com/rockwell-uk/uiprogress
+module github.com/db-tech-uk/uiprogress
 
-go 1.18
+go 1.27
 
 require (
+	github.com/db-tech-uk/csync v1.0.4
 	github.com/gosuri/uilive v0.0.4
-	github.com/rockwell-uk/csync v1.0.0
 )
 
 require (
-	github.com/mattn/go-isatty v0.0.14 // indirect
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	github.com/mattn/go-isatty v0.0.24 // indirect
+	golang.org/x/sys v0.28.0 // indirect
 )

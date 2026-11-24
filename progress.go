@@ -123,9 +123,9 @@ func (p *Progress) print() {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
 	for _, bar := range p.Bars {
-		fmt.Fprintln(p.lw, bar.String())
+		_, _ = fmt.Fprintln(p.lw, bar.String())
 	}
-	p.lw.Flush()
+	_ = p.lw.Flush()
 }
 
 // Start starts the rendering the progress of progress bars. It listens for updates using `bar.Set(n)` and new bars when added using `AddBar`

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
+	"github.com/db-tech-uk/csync/waitgroup"
 )
 
 func TestStoppingPrintout(t *testing.T) {
@@ -20,13 +20,15 @@ func TestStoppingPrintout(t *testing.T) {
 	bar := p.AddBar(100)
 	p.Start()
 
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	wg.Add(1)
 
 	go func() {
 		for i := 0; i <= 80; i = i + 10 {
-			bar.Set(i)
+			if err := bar.Set(i); err != nil {
+				t.Error(err)
+			}
 			time.Sleep(time.Millisecond * 5)
 		}
 

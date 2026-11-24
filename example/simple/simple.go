@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func main() {

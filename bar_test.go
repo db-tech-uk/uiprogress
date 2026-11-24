@@ -7,13 +7,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
+	"github.com/db-tech-uk/csync/waitgroup"
 )
 
 func TestBarPrepend(t *testing.T) {
 	b := NewBar(100)
 	b.PrependCompleted()
-	b.Set(50)
+	if err := b.Set(50); err != nil {
+		t.Fatal(err)
+	}
 	if !strings.Contains(b.String(), "50") {
 		t.Fatal("want", "50%", "in", b.String())
 	}
@@ -22,7 +24,7 @@ func TestBarPrepend(t *testing.T) {
 func TestBarIncr(t *testing.T) {
 	b := NewBar(10000)
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 	for i := 0; i < 10000; i++ {
 		wg.Add(1)
 		go func() {

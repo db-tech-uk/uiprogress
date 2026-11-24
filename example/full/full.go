@@ -5,9 +5,9 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
-	"github.com/rockwell-uk/uiprogress/util/strutil"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
+	"github.com/db-tech-uk/uiprogress/util/strutil"
 )
 
 var steps = []string{
@@ -24,7 +24,7 @@ func main() {
 	fmt.Println("apps: deployment started: app1, app2")
 	uiprogress.Start()
 
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 	wg.Add(1)
 	go deploy("app1", wg)
 	wg.Add(1)
@@ -44,8 +44,8 @@ func deploy(app string, wg *waitgroup.WaitGroup) {
 		return strutil.Resize(app+": "+steps[b.Current()-1], 22)
 	})
 
-	rand.Seed(500)
+	rng := rand.New(rand.NewSource(500))
 	for bar.Incr() {
-		time.Sleep(time.Millisecond * time.Duration(rand.Intn(2000)))
+		time.Sleep(time.Millisecond * time.Duration(rng.Intn(2000)))
 	}
 }

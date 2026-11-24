@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/rockwell-uk/csync/waitgroup"
-	"github.com/rockwell-uk/uiprogress"
+	"github.com/db-tech-uk/csync/waitgroup"
+	"github.com/db-tech-uk/uiprogress"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 	p := uiprogress.New()
 	p.Start()
 
-	var wg *waitgroup.WaitGroup = waitgroup.New()
+	wg := waitgroup.New()
 
 	bar1 := p.AddBar(20).AppendCompleted().PrependElapsed()
 	wg.Add(1)
@@ -22,7 +22,7 @@ func main() {
 		for bar1.Incr() {
 			time.Sleep(waitTime)
 		}
-		fmt.Fprintln(p.Bypass(), "Bar1 finished")
+		_, _ = fmt.Fprintln(p.Bypass(), "Bar1 finished")
 	}()
 
 	bar2 := p.AddBar(40).AppendCompleted().PrependElapsed()
@@ -32,7 +32,7 @@ func main() {
 		for bar2.Incr() {
 			time.Sleep(waitTime)
 		}
-		fmt.Fprintln(p.Bypass(), "Bar2 finished")
+		_, _ = fmt.Fprintln(p.Bypass(), "Bar2 finished")
 	}()
 
 	time.Sleep(time.Second)
@@ -43,7 +43,7 @@ func main() {
 		for bar3.Incr() {
 			time.Sleep(waitTime)
 		}
-		fmt.Fprintln(p.Bypass(), "Bar3 finished")
+		_, _ = fmt.Fprintln(p.Bypass(), "Bar3 finished")
 	}()
 
 	wg.Wait()

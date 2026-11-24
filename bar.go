@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rockwell-uk/uiprogress/util/strutil"
+	"github.com/db-tech-uk/uiprogress/util/strutil"
 )
 
 var (
@@ -95,8 +95,7 @@ func (b *Bar) Set(n int) error {
 	if n > b.Total {
 		return ErrMaxCurrentReached
 	}
-	var t time.Time
-	if b.TimeStarted == t {
+	if b.TimeStarted.IsZero() {
 		b.TimeStarted = time.Now()
 	}
 	b.timeElapsed = time.Since(b.TimeStarted)
@@ -113,8 +112,7 @@ func (b *Bar) Incr() bool {
 	if n > b.Total {
 		return false
 	}
-	var t time.Time
-	if b.TimeStarted == t {
+	if b.TimeStarted.IsZero() {
 		b.TimeStarted = time.Now()
 	}
 	b.timeElapsed = time.Since(b.TimeStarted)
